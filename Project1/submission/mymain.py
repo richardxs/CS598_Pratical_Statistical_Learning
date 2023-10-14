@@ -25,33 +25,7 @@ winsor_features_set = ['BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Enclosed_Porch', 'First_F
 
 # categorical_feature_set = None
 
-# Common Utility Methods
-def preprocess(data):
-    pass
-
-def lasso_rmse(df_train_x_trans, df_test_x_trans, df_train_y, df_test_y, best_alpha):
-  best_lasso = Lasso(fit_intercept=True, random_state=0, alpha=best_alpha, max_iter=10000)
-  best_lasso_pipeline = Pipeline(steps=[("scalar",StandardScaler()), ("lasso", best_lasso)])
-
-  best_lasso_pipeline.fit(df_train_x_trans , df_train_y)
-
-  lasso_train_predict = best_lasso_pipeline.predict(df_train_x_trans)
-  lasso_test_predict = best_lasso_pipeline.predict(df_test_x_trans)
-
-  lasso_rmse_train = np.sqrt(np.mean(lasso_train_predict - np.squeeze(df_train_y.values))**2)
-  lasso_rmse_test = np.sqrt(np.mean(lasso_test_predict - np.squeeze(df_test_y.values))**2)
-  return lasso_rmse_test
-
-def XGBoost_rmse(df_train_x_trans, df_test_x_trans, df_train_y, df_test_y, max_depth, n_estimators):
-  best_xgb = XGBRegressor(max_depth=3, n_estimators=400)
-  best_xgb_pipeline = Pipeline(steps=[("scalar",StandardScaler()), ("xgb", best_xgb)])
-
-  best_xgb_pipeline.fit(df_train_x_trans , df_train_y)
-  xgb_train_predict = best_xgb_pipeline.predict(df_train_x_trans)
-  xgb_test_predict = best_xgb_pipeline.predict(df_test_x_trans)
-  xgb_rmse_train = np.sqrt(np.mean(xgb_train_predict - np.squeeze(df_train_y.values))**2)
-  xgb_rmse_test = np.sqrt(np.mean(xgb_test_predict - np.squeeze(df_test_y.values))**2)
-  return xgb_rmse_test
+# Common Utility Method
 
 def get_categorical_feature_set(df):
     categorical_feature_set = [feature for feature in df.columns if df[feature].dtypes == 'object']
@@ -66,12 +40,10 @@ def categorical_variable_transform(df, categorical_feature_set=None, feature_enc
     if not categorical_feature_set:
         categorical_feature_set = [feature for feature in df.columns if df[feature].dtypes == 'object']
 
-    #print(f"categorical_feature_set: \n------------------\n{categorical_feature_set}")
 
     if not feature_encoder_mapping:
         feature_encoder_mapping = dict()
 
-    #print(f"feature_encoder_mapping: \n------------------\n{feature_encoder_mapping}")
 
     for feature in categorical_feature_set:
 
@@ -141,7 +113,7 @@ def preprocess_and_fit_models(train_csv):
     best_lasso = Lasso(fit_intercept=True, random_state=0, alpha=best_alpha, max_iter=10000)
     model_1 = Pipeline(steps=[("scalar", StandardScaler()), ("lasso", best_lasso)])
 
-    #print(f"df_train_x_trans: \n{df_train_x_trans.head(10)} ,\n df_train_y:\n {df_train_y.head(10)}")
+
     model_1.fit(df_train_x_trans, df_train_y)
 
     # Initialize and fit the second model : XGBoost
