@@ -29,6 +29,29 @@ winsor_features_set = ['BsmtFin_SF_2', 'Bsmt_Unf_SF', 'Enclosed_Porch', 'First_F
 def preprocess(data):
     pass
 
+def lasso_rmse(df_train_x_trans, df_test_x_trans, df_train_y, df_test_y, best_alpha):
+  best_lasso = Lasso(fit_intercept=True, random_state=0, alpha=best_alpha, max_iter=10000)
+  best_lasso_pipeline = Pipeline(steps=[("scalar",StandardScaler()), ("lasso", best_lasso)])
+
+  best_lasso_pipeline.fit(df_train_x_trans , df_train_y)
+
+  lasso_train_predict = best_lasso_pipeline.predict(df_train_x_trans)
+  lasso_test_predict = best_lasso_pipeline.predict(df_test_x_trans)
+
+  lasso_rmse_train = np.sqrt(np.mean(lasso_train_predict - np.squeeze(df_train_y.values))**2)
+  lasso_rmse_test = np.sqrt(np.mean(lasso_test_predict - np.squeeze(df_test_y.values))**2)
+  return lasso_rmse_test
+
+def XGBoost_rmse(df_train_x_trans, df_test_x_trans, df_train_y, df_test_y, max_depth, n_estimators):
+  best_xgb = XGBRegressor(max_depth=3, n_estimators=400)
+  best_xgb_pipeline = Pipeline(steps=[("scalar",StandardScaler()), ("xgb", best_xgb)])
+
+  best_xgb_pipeline.fit(df_train_x_trans , df_train_y)
+  xgb_train_predict = best_xgb_pipeline.predict(df_train_x_trans)
+  xgb_test_predict = best_xgb_pipeline.predict(df_test_x_trans)
+  xgb_rmse_train = np.sqrt(np.mean(xgb_train_predict - np.squeeze(df_train_y.values))**2)
+  xgb_rmse_test = np.sqrt(np.mean(xgb_test_predict - np.squeeze(df_test_y.values))**2)
+  return xgb_rmse_test
 
 def get_categorical_feature_set(df):
     categorical_feature_set = [feature for feature in df.columns if df[feature].dtypes == 'object']
@@ -43,12 +66,12 @@ def categorical_variable_transform(df, categorical_feature_set=None, feature_enc
     if not categorical_feature_set:
         categorical_feature_set = [feature for feature in df.columns if df[feature].dtypes == 'object']
 
-    print(f"categorical_feature_set: \n------------------\n{categorical_feature_set}")
+    #print(f"categorical_feature_set: \n------------------\n{categorical_feature_set}")
 
     if not feature_encoder_mapping:
         feature_encoder_mapping = dict()
 
-    print(f"feature_encoder_mapping: \n------------------\n{feature_encoder_mapping}")
+    #print(f"feature_encoder_mapping: \n------------------\n{feature_encoder_mapping}")
 
     for feature in categorical_feature_set:
 
@@ -74,9 +97,9 @@ def categorical_variable_transform(df, categorical_feature_set=None, feature_enc
 
         # Replace the original feature with one-hot encoded feature
         df.drop(columns=feature, inplace=True)
-        transformed_df = pd.concat([df, df_hot_code], axis=1)
+        df = pd.concat([df, df_hot_code], axis=1)
 
-    return transformed_df, categorical_feature_set, feature_encoder_mapping
+    return df, categorical_feature_set, feature_encoder_mapping
 
 
 # Step 1: Preprocess the training data and fit the models
@@ -85,11 +108,13 @@ def preprocess_and_fit_models(train_csv):
         f"preprocess_and_fit_models(): Preprocessing the Training data and generating two fitted models Lasso and XGBoost.")
     # Load the training data
     df_train = pd.read_csv(train_csv)
+    print(f"preprocess_and_fit_models(): df_train{df_train.head()}")
+
 
     # Split the data into features (X) and target labels (y)
     df_train_y = pd.DataFrame()
     df_train_y['Sale_Price'] = df_train['Sale_Price'].copy()
-    df_train_x = df_train.drop(columns=['Sale_Price'])  # 'PID',
+    df_train_x = df_train.drop(columns=['PID','Sale_Price'])  # 'PID',
 
     # Preprocess data (e.g., handle missing values, encode categorical features, scale, etc.)
     # Impute missing values in "Garage_Yr_Blt" variable with 0
@@ -116,6 +141,7 @@ def preprocess_and_fit_models(train_csv):
     best_lasso = Lasso(fit_intercept=True, random_state=0, alpha=best_alpha, max_iter=10000)
     model_1 = Pipeline(steps=[("scalar", StandardScaler()), ("lasso", best_lasso)])
 
+    #print(f"df_train_x_trans: \n{df_train_x_trans.head(10)} ,\n df_train_y:\n {df_train_y.head(10)}")
     model_1.fit(df_train_x_trans, df_train_y)
 
     # Initialize and fit the second model : XGBoost
@@ -135,10 +161,14 @@ def preprocess_and_save_predictions(test_csv, categorical_feature_set, feature_e
         f"preprocess_and_save_predictions(): Preprocess test data and save predictions\n")
     # Load the test data
     df_test_x = pd.read_csv(test_csv)
+    pid_df = pd.DataFrame()
+    pid_df['PID'] =  df_test_x['PID'].copy()
 
     # Preprocess the test data to match the preprocessing applied to the training data
+    df_test_x.drop(columns=['PID'], inplace=True)  # 2023_10_13
     df_test_x['Garage_Yr_Blt'].fillna(0, inplace=True)
     df_test_x.drop(columns=remove_features_set, inplace=True)
+
 
     # Treating the two features "Mo_Sold" (1~12), and "Year_Sold" (2006~2010) as categorical
     # variables can improve model performance
@@ -150,7 +180,6 @@ def preprocess_and_save_predictions(test_csv, categorical_feature_set, feature_e
                                                                                                        feature_encoder_mapping)
 
     # Make predictions using the first model
-    # print(f"transformed test_x: \n----\n {df_test_x_trans.head()}")
 
     print(
         f"preprocess_and_save_predictions(): Generating Predictions based on the test_data sample: \n----\n {df_test_x_trans.head()}")
@@ -160,8 +189,8 @@ def preprocess_and_save_predictions(test_csv, categorical_feature_set, feature_e
     predictions2 = model_2.predict(df_test_x_trans)
 
     # Create a DataFrame with PID and Sale_Price columns
-    submission_df1 = pd.DataFrame({'PID': df_test_x_trans['PID'], 'Sale_Price': np.exp(predictions1)})
-    submission_df2 = pd.DataFrame({'PID': df_test_x_trans['PID'], 'Sale_Price': np.exp(predictions2)})
+    submission_df1 = pd.DataFrame({'PID': pid_df['PID'], 'Sale_Price': np.exp(predictions1)})
+    submission_df2 = pd.DataFrame({'PID': pid_df['PID'], 'Sale_Price': np.exp(predictions2)})
 
 
     # Save predictions to two submission files in the specified format
