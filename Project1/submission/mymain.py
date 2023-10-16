@@ -95,13 +95,13 @@ def preprocess_and_fit_models(train_csv):
     df_train_x.drop(columns=remove_features_set, inplace=True)
 
     for val in winsor_features_set:
-        upper_limit = df_train[val].quantile(0.95)
+        upper_limit = df_train[val].quantile(0.974)
         df_train_x[val] = df_train_x[val].apply(lambda x: upper_limit if x > upper_limit else x)
 
     # Treating the two features "Mo_Sold" (1~12), and "Year_Sold" (2006~2010) as categorical
     # variables can improve model performance
-    df_train_x['Mo_Sold'] = df_train_x['Mo_Sold'].values.astype('object')
-    df_train_x['Year_Sold'] = df_train_x['Year_Sold'].values.astype('object')
+    # df_train_x['Mo_Sold'] = df_train_x['Mo_Sold'].values.astype('object')
+    # df_train_x['Year_Sold'] = df_train_x['Year_Sold'].values.astype('object')
 
     df_train_x_trans, categorical_feature_set, feature_encoder_mapping = categorical_variable_transform(df_train_x)
 
@@ -117,7 +117,7 @@ def preprocess_and_fit_models(train_csv):
     model_1.fit(df_train_x_trans, df_train_y)
 
     # Initialize and fit the second model : XGBoost
-    best_xgb = XGBRegressor(max_depth=3, n_estimators=400)
+    best_xgb = XGBRegressor(max_depth=2, n_estimators=420)
     model_2 = Pipeline(steps=[("scalar", StandardScaler()), ("xgb", best_xgb)])
 
     model_2.fit(df_train_x_trans, df_train_y)
@@ -141,11 +141,14 @@ def preprocess_and_save_predictions(test_csv, categorical_feature_set, feature_e
     df_test_x['Garage_Yr_Blt'].fillna(0, inplace=True)
     df_test_x.drop(columns=remove_features_set, inplace=True)
 
+    for val in winsor_features_set:
+        upper_limit = df_test_x[val].quantile(0.974)
+        df_test_x[val] = df_test_x[val].apply(lambda x: upper_limit if x > upper_limit else x)
 
     # Treating the two features "Mo_Sold" (1~12), and "Year_Sold" (2006~2010) as categorical
     # variables can improve model performance
-    df_test_x['Mo_Sold'] = df_test_x['Mo_Sold'].values.astype('object')
-    df_test_x['Year_Sold'] = df_test_x['Year_Sold'].values.astype('object')
+    # df_test_x['Mo_Sold'] = df_test_x['Mo_Sold'].values.astype('object')
+    # df_test_x['Year_Sold'] = df_test_x['Year_Sold'].values.astype('object')
 
     df_test_x_trans, categorical_feature_set, feature_encoder_mapping = categorical_variable_transform(df_test_x,
                                                                                                        categorical_feature_set,
