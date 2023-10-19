@@ -21,20 +21,20 @@ def lasso_rmse(df_train_x_trans, df_test_x_trans, df_train_y, df_test_y, best_al
   lasso_train_predict = best_lasso_pipeline.predict(df_train_x_trans)
   lasso_test_predict = best_lasso_pipeline.predict(df_test_x_trans)
 
-  lasso_rmse_train = np.sqrt(np.mean(lasso_train_predict - np.squeeze(df_train_y.values))**2)
-  lasso_rmse_test = np.sqrt(np.mean(lasso_test_predict - np.squeeze(df_test_y.values))**2)
+  lasso_rmse_train = np.sqrt(np.mean((lasso_train_predict - np.squeeze(df_train_y.values))**2))
+  lasso_rmse_test = np.sqrt(np.mean((lasso_test_predict - np.squeeze(df_test_y.values))**2))
   return lasso_rmse_test
 
 
 def XGBoost_rmse(df_train_x_trans, df_test_x_trans, df_train_y, df_test_y, max_depth, n_estimators):
-  best_xgb = XGBRegressor(max_depth=3, n_estimators=400)
+  best_xgb = XGBRegressor(max_depth=2, n_estimators=420)
   best_xgb_pipeline = Pipeline(steps=[("scalar",StandardScaler()), ("xgb", best_xgb)])
 
   best_xgb_pipeline.fit(df_train_x_trans , df_train_y)
   xgb_train_predict = best_xgb_pipeline.predict(df_train_x_trans)
   xgb_test_predict = best_xgb_pipeline.predict(df_test_x_trans)
-  xgb_rmse_train = np.sqrt(np.mean(xgb_train_predict - np.squeeze(df_train_y.values))**2)
-  xgb_rmse_test = np.sqrt(np.mean(xgb_test_predict - np.squeeze(df_test_y.values))**2)
+  xgb_rmse_train = np.sqrt(np.mean((xgb_train_predict - np.squeeze(df_train_y.values))**2))
+  xgb_rmse_test = np.sqrt(np.mean((xgb_test_predict - np.squeeze(df_test_y.values))**2))
   return xgb_rmse_test
 
 
@@ -69,7 +69,7 @@ def eval_lasso(y_lasso, test_y_csv):
 
     # Compute the RMSE
     #rmse = np.sqrt(mse)
-    rmse = np.sqrt(np.mean(y_pred - np.squeeze(y_true)) ** 2)
+    rmse = np.sqrt(np.mean((y_pred - np.squeeze(y_true)) ** 2))
 
     print(f"Root Mean Squared Error (RMSE): {rmse}")
 
@@ -85,7 +85,7 @@ def generate_rmse(data_folder, pred_file, true_val_file):
     y_true = np.array([true_y_dict[pid] for pid in true_y_dict.keys()])
     y_pred = np.array([pred_dict[pid] for pid in pred_dict.keys()])
 
-    rmse = np.sqrt(np.mean(np.log(y_pred) - np.squeeze(np.log(y_true))) ** 2)
+    rmse = np.sqrt(np.mean((np.log(y_pred) - np.squeeze(np.log(y_true))) ** 2))
     return rmse
 
     #pass
@@ -104,11 +104,11 @@ if __name__ == "__main__":
     lasso_rmse_list = []
     tree_rmse_list = []
     #start_time = time.time()
-    for i in range(1, 9):
-
-        lasso_rmse_list.append(generate_rmse(root+str(i),y_lasso_csv,test_y_csv))
-        tree_rmse_list.append(
-            generate_rmse(root+str(i),y_xgb_csv,test_y_csv))
+    #for i in range(1, 9):
+    i = 9
+    lasso_rmse_list.append(generate_rmse(root+str(i),y_lasso_csv,test_y_csv))
+    tree_rmse_list.append(
+    generate_rmse(root+str(i),y_xgb_csv,test_y_csv))
     #end_time = time.time()
     #print(end_time - start_time)
 
