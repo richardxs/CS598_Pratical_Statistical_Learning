@@ -15198,7 +15198,8 @@ The Baum-Welch Algorihtm is the EM algorithm for the HMM. Create a function name
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
             <span class="n">gamma_t</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">myGamma</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">,:])</span>
 
-    <span class="n">gamma_t</span><span class="p">[</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">gamma_t</span><span class="p">[</span><span class="n">T</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mz</span><span class="p">):</span>
+        <span class="n">gamma_t</span><span class="p">[</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">myGamma</span><span class="p">[</span><span class="n">T</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
     
     <span class="c1"># Update A_{mz x mz}</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mz</span><span class="p">):</span>
@@ -15450,7 +15451,10 @@ Run your implementation with <strong>100</strong> iterations</p>
 
 <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 <span class="c1"># Estimated states</span>
-<span class="n">Z_est</span> <span class="o">=</span> <span class="n">viterbi</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">A_bw</span><span class="p">,</span> <span class="n">B_bw</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
+<span class="c1">#Z_est = viterbi(data, A_bw, B_bw, w)</span>
+
+<span class="c1"># Use the results from BW output in PartII </span>
+<span class="n">Z_est</span> <span class="o">=</span> <span class="n">viterbi</span><span class="p">(</span><span class="n">data</span><span class="p">,</span> <span class="n">A100</span><span class="p">,</span> <span class="n">B100</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="n">Z_est</span><span class="p">)</span>
 </pre></div>
 
