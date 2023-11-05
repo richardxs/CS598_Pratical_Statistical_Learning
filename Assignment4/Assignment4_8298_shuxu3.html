@@ -15091,7 +15091,7 @@ The Baum-Welch Algorihtm is the EM algorithm for the HMM. Create a function name
 <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">genfromtxt</span><span class="p">(</span><span class="s2">&quot;coding4_part2_data.txt&quot;</span><span class="p">,</span> <span class="n">dtype</span><span class="o">=</span><span class="nb">int</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span>
 <span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">])</span>
 <span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">],</span> <span class="p">[</span><span class="mf">0.5</span><span class="p">,</span> <span class="mf">0.5</span><span class="p">]])</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">9</span><span class="p">,</span> <span class="mi">5</span><span class="o">/</span><span class="mi">9</span><span class="p">],</span> <span class="p">[</span><span class="mi">1</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">2</span><span class="o">/</span><span class="mi">6</span><span class="p">,</span> <span class="mi">3</span><span class="o">/</span><span class="mi">6</span><span class="p">]])</span>
+<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">9.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="o">/</span><span class="mf">9.0</span><span class="p">,</span> <span class="mf">5.0</span><span class="o">/</span><span class="mf">9.0</span><span class="p">],</span> <span class="p">[</span><span class="mf">1.0</span><span class="o">/</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">2.0</span><span class="o">/</span><span class="mf">6.0</span><span class="p">,</span> <span class="mf">3.0</span><span class="o">/</span><span class="mf">6.0</span><span class="p">]])</span>
 </pre></div>
 
      </div>
@@ -15181,8 +15181,8 @@ The Baum-Welch Algorihtm is the EM algorithm for the HMM. Create a function name
     <span class="n">T</span> <span class="o">=</span> <span class="nb">len</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>
     <span class="n">mz</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
     <span class="n">mx</span> <span class="o">=</span> <span class="n">B</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
-    <span class="n">gamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">mz</span><span class="p">))</span>
-    <span class="n">gamma_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">mz</span><span class="p">))</span>    
+    <span class="n">myGamma</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="n">mz</span><span class="p">,</span> <span class="n">mz</span><span class="p">))</span>
+    <span class="n">gamma_t</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">T</span><span class="p">,</span> <span class="n">mz</span><span class="p">))</span>    
         
     <span class="n">alpha</span> <span class="o">=</span> <span class="n">compute_forward_probability</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">X</span><span class="p">,</span> <span class="n">w</span><span class="p">)</span>
     <span class="n">beta</span> <span class="o">=</span>  <span class="n">compute_backward_probability</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">,</span> <span class="n">X</span><span class="p">)</span>   
@@ -15191,27 +15191,29 @@ The Baum-Welch Algorihtm is the EM algorithm for the HMM. Create a function name
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mz</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mz</span><span class="p">):</span>
             <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-                <span class="n">gamma</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span><span class="o">*</span><span class="n">beta</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
+                <span class="n">myGamma</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">alpha</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">]</span><span class="o">*</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span><span class="o">*</span><span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">,</span><span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">]]</span><span class="o">*</span><span class="n">beta</span><span class="p">[</span><span class="n">t</span><span class="o">+</span><span class="mi">1</span><span class="p">,</span><span class="n">j</span><span class="p">]</span>
     
     <span class="c1"># update gamma_t based on gamma</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mz</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
-            <span class="n">gamma_t</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">gamma</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">,:])</span>
+            <span class="n">gamma_t</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">myGamma</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">,:])</span>
+
+    <span class="n">gamma_t</span><span class="p">[</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span> <span class="o">=</span> <span class="n">gamma_t</span><span class="p">[</span><span class="n">T</span><span class="o">-</span><span class="mi">2</span><span class="p">,</span> <span class="p">:]</span>
     
     <span class="c1"># Update A_{mz x mz}</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mz</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mz</span><span class="p">):</span>
-            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">gamma</span><span class="p">[:,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">])</span>
+            <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">myGamma</span><span class="p">[:,</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">])</span>
         
-        <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">gamma_t</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
         
     <span class="c1"># Update B_{mz x mz}</span>
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mz</span><span class="p">):</span>
         <span class="k">for</span> <span class="n">l</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">mx</span><span class="p">):</span>
             <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">l</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
-            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="o">-</span><span class="mi">1</span><span class="p">):</span>
+            <span class="k">for</span> <span class="n">t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">T</span><span class="p">):</span>
                 <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span><span class="n">l</span><span class="p">]</span> <span class="o">+=</span> <span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="n">t</span><span class="p">]</span><span class="o">==</span><span class="n">l</span><span class="p">)</span><span class="o">*</span><span class="p">(</span><span class="n">gamma_t</span><span class="p">[</span><span class="n">t</span><span class="p">,</span><span class="n">i</span><span class="p">])</span>
-        <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">gamma_t</span><span class="p">[:,</span><span class="n">i</span><span class="p">])</span>
+        <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span> <span class="o">=</span> <span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,:]</span><span class="o">/</span><span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">B</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="p">:])</span>
     
     <span class="k">return</span> <span class="n">A</span><span class="p">,</span> <span class="n">B</span>
 </pre></div>
@@ -15258,8 +15260,8 @@ The Baum-Welch Algorihtm is the EM algorithm for the HMM. Create a function name
 [[0.485465   0.514535  ]
  [0.48503179 0.51496821]]
 B matrix after BW one step is
-[[0.2361149  0.19158446 0.57230065]
- [0.33386426 0.18059909 0.48553666]]
+[[0.2348986  0.19574883 0.56935256]
+ [0.33224256 0.1845792  0.48317824]]
 </pre>
 </div>
 </div>
@@ -15324,11 +15326,11 @@ B matrix after BW one step is
 
 <div class="jp-RenderedText jp-OutputArea-output" data-mime-type="text/plain">
 <pre>A matrix after BW 100th step is
-[[0.51352668 0.48647332]
- [0.45797044 0.54202956]]
+[[0.49756056 0.50243944]
+ [0.44840436 0.55159564]]
 B matrix after BW 100th step is
-[[0.2246055  0.19169008 0.58370442]
- [0.34465758 0.18050475 0.47483768]]
+[[0.22122219 0.20345148 0.57532633]
+ [0.34199559 0.17797897 0.48002545]]
 </pre>
 </div>
 </div>
