@@ -1,0 +1,631 @@
+
+(CS598_Pratical_Statistical_Learning) amritpandey@Amrits-MacBook-Pro submission % python evaluate_project2.py
+
+
+
+============[ PROJECT 2 EVALUATION STARTS HERE !!]=================
+
+test_with_label_file: ../test_with_label.csv
+df_test_with_label:    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2011-03-04      20327.61      False
+1      1     1 2011-03-11      21280.40      False
+2      1     1 2011-03-18      20334.23      False
+3      1     1 2011-03-25      20881.10      False
+4      1     1 2011-04-01      20398.09      False
+ training_csv_path: ../fold_1/train.csv 
+ test_csv_path: ../fold_1/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25530.082626
+1      1     1  2010     6       True  47619.470027
+2      1     1  2010     7      False  39372.408473
+3      1     1  2010     8      False  19774.959547
+4      1     1  2010     9      False  21336.062008
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [18912.05336202 18244.44179031 18853.85405332 21326.75282687
+ 54970.63032547 43012.77015711 14904.45174439 14029.57941733
+ 14762.08952907]
+type: <class 'numpy.ndarray'> , pred_test_1 : [48382.26611135 45521.79060553 44703.06316527 43278.7881462
+ 46552.87048097 45395.46145814 46750.03107477 45776.27473104
+ 45838.55307067]
+type: <class 'numpy.ndarray'> , pred_test_2 : [10791.82468278 10307.45665024  9810.48707919 10134.74862591
+ 10300.20921441 10212.91502453 10307.45665024 10307.45665024
+  9760.2026076 ]
+type: <class 'numpy.ndarray'> , pred_test_3 : [37894.0771264  32951.6763569  33846.88436491 32137.23221934
+ 36829.32254285 35200.13136539 34385.25641333 34052.84168099
+ 33964.72679455]
+type: <class 'numpy.ndarray'> , pred_test_4 : [27303.45961258 27403.31609588 27947.60140452 40687.82485344
+ 32508.31907646 24558.53851419 18741.1911315  27055.94132744
+ 23977.74188738]
+type: <class 'numpy.ndarray'> , pred_test_5 : [2932.36439867 2911.60159645 2847.30377078 3314.30260259 2847.30377078
+ 2847.30377078 2847.30377078 2847.30377078 2748.63588886]
+/Users/amritpandey/opt/anaconda3/envs/CS598_Pratical_Statistical_Learning/lib/python3.8/site-packages/sklearn/linear_model/_coordinate_descent.py:628: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 5.090e+06, tolerance: 1.116e+06
+  model = cd_fast.enet_coordinate_descent(
+/Users/amritpandey/opt/anaconda3/envs/CS598_Pratical_Statistical_Learning/lib/python3.8/site-packages/sklearn/linear_model/_coordinate_descent.py:628: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 0.000e+00, tolerance: 0.000e+00
+  model = cd_fast.enet_coordinate_descent(
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2011-03-04      False  18912.053362
+1      1     1 2011-03-11      False  18244.441790
+2      1     1 2011-03-18      False  18853.854053
+3      1     1 2011-03-25      False  21326.752827
+4      1     1 2011-04-01      False  54970.630325
+ training_csv_path: ../fold_2/train.csv 
+ test_csv_path: ../fold_2/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25515.529406
+1      1     1  2010     6       True  46694.632697
+2      1     1  2010     7      False  39755.731282
+3      1     1  2010     8      False  20054.031183
+4      1     1  2010     9      False  21328.216082
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [18552.75578702 18754.86507896 16456.31445642 16478.48149422
+ 17523.4753837  17648.43960963 17133.80409639 17047.89578876]
+type: <class 'numpy.ndarray'> , pred_test_1 : [47715.53046241 44966.00874831 46309.84736862 46723.3637002
+ 47647.35852662 46724.95308417 47128.52446337 46089.96566497]
+type: <class 'numpy.ndarray'> , pred_test_2 : [9876.83180231 8716.99130608 8973.5785139  8956.23554575 8671.42508698
+ 8261.52665953 8526.78095454 7913.26636717]
+type: <class 'numpy.ndarray'> , pred_test_3 : [36505.11990457 33126.93216142 35460.9951116  35508.2091215
+ 38654.78338869 35392.04375554 35126.70791328 33990.35642482]
+type: <class 'numpy.ndarray'> , pred_test_4 : [20395.62178001 18320.48440128 15863.86455928 17177.35979271
+ 23138.58200785 20395.62178001 20418.92915317 18846.96478986]
+type: <class 'numpy.ndarray'> , pred_test_5 : [5588.8898039  5217.19113237 4000.34111472 4462.34957123 3737.99463875
+ 3680.59630241 3680.59630241 3730.88898889]
+/Users/amritpandey/opt/anaconda3/envs/CS598_Pratical_Statistical_Learning/lib/python3.8/site-packages/sklearn/linear_model/_coordinate_descent.py:628: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 4.950e+06, tolerance: 1.340e+06
+  model = cd_fast.enet_coordinate_descent(
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2011-05-06      False  18552.755787
+1      1     1 2011-05-13      False  18754.865079
+2      1     1 2011-05-20      False  16456.314456
+3      1     1 2011-05-27      False  16478.481494
+4      1     1 2011-06-03      False  17523.475384
+ training_csv_path: ../fold_3/train.csv 
+ test_csv_path: ../fold_3/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25576.998676
+1      1     1  2010     6       True  46771.631310
+2      1     1  2010     7      False  39573.859508
+3      1     1  2010     8      False  20170.129635
+4      1     1  2010     9      False  21460.079404
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [16895.10570604 17617.35715122 17083.58588174 15964.43886193
+ 16638.71159223 16592.4419873  16342.85547023 15924.39187759
+ 15753.46123463]
+type: <class 'numpy.ndarray'> , pred_test_1 : [47954.48783601 46322.19542215 46978.09286448 46322.19542215
+ 46635.36130102 48937.88793699 49079.05641978 49513.0131461
+ 48801.65166658]
+type: <class 'numpy.ndarray'> , pred_test_2 : [ 7933.15772387  9479.39369433 15692.52306723 17738.64867912
+ 19396.21489353 24527.82920324 29725.16649832 42885.22050904
+ 49799.19159441]
+type: <class 'numpy.ndarray'> , pred_test_3 : [39221.36161708 38793.24074276 36810.87092236 35848.5931841
+ 35848.5931841  39770.19512527 38037.32909253 39903.58302991
+ 36475.90304922]
+type: <class 'numpy.ndarray'> , pred_test_4 : [19768.07430478 18252.08765459 16273.57425849 16219.97587363
+ 17990.93877604 17236.25445126 16462.32542437 16371.42733787
+ 14538.76683086]
+type: <class 'numpy.ndarray'> , pred_test_5 : [3602.94540824 3602.94540824 3401.25223312 3602.94540824 3235.78765258
+ 3718.09087362 3602.94540824 1875.02150897 2766.88253746]
+/Users/amritpandey/opt/anaconda3/envs/CS598_Pratical_Statistical_Learning/lib/python3.8/site-packages/sklearn/linear_model/_coordinate_descent.py:628: ConvergenceWarning: Objective did not converge. You might want to increase the number of iterations, check the scale of the features or consider increasing regularisation. Duality gap: 4.849e+06, tolerance: 1.588e+06
+  model = cd_fast.enet_coordinate_descent(
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2011-07-01      False  16895.105706
+1      1     1 2011-07-08      False  17617.357151
+2      1     1 2011-07-15      False  17083.585882
+3      1     1 2011-07-22      False  15964.438862
+4      1     1 2011-07-29      False  16638.711592
+ training_csv_path: ../fold_4/train.csv 
+ test_csv_path: ../fold_4/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25675.836349
+1      1     1  2010     6       True  46944.210326
+2      1     1  2010     7      False  39436.007978
+3      1     1  2010     8      False  20267.495242
+4      1     1  2010     9      False  21569.630554
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [17816.03733863 18275.484407   18275.484407   18275.484407
+ 19371.843594   21738.99070199 23803.76329746 25919.86233163
+ 37368.05322079]
+type: <class 'numpy.ndarray'> , pred_test_1 : [50666.21807874 45078.0729138  45593.94122126 45118.44662823
+ 45934.02971656 46167.8742701  43764.68357915 44199.89716762
+ 43709.17443346]
+type: <class 'numpy.ndarray'> , pred_test_2 : [22223.41176587 11609.76938663 10895.63415225 10118.52912138
+ 10118.52912138 10118.52912138 10064.09754601 10118.52912138
+  9945.64632752]
+type: <class 'numpy.ndarray'> , pred_test_3 : [38532.36741384 35747.56961731 34265.11923152 33111.94463871
+ 34116.63294113 35736.43689256 34218.48179502 34132.25517492
+ 34437.06824194]
+type: <class 'numpy.ndarray'> , pred_test_4 : [16615.47632132 16515.81799912 17239.89831381 16750.88173841
+ 20855.28966017 20226.02759641 19479.00524875 19340.61186662
+ 17084.83745685]
+type: <class 'numpy.ndarray'> , pred_test_5 : [3072.62712552 3338.31216566 3451.10267051 3462.35989235 3392.17406275
+ 2880.81327841 3236.30227488 3237.37173638 3035.78796385]
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2011-09-02      False  17816.037339
+1      1     1 2011-09-09       True  18275.484407
+2      1     1 2011-09-16      False  18275.484407
+3      1     1 2011-09-23      False  18275.484407
+4      1     1 2011-09-30      False  19371.843594
+ training_csv_path: ../fold_5/train.csv 
+ test_csv_path: ../fold_5/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25597.425090
+1      1     1  2010     6       True  46681.685564
+2      1     1  2010     7      False  39719.225187
+3      1     1  2010     8      False  20113.038604
+4      1     1  2010     9      False  21472.552537
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [31506.57947354 17600.37847072 18079.57829578 17124.13519165
+ 21512.01333042 30301.54174233 43823.78051148 52650.23101761
+ 18079.57829578]
+type: <class 'numpy.ndarray'> , pred_test_1 : [45531.84170487 43391.26821579 43279.0396867  42984.41518019
+ 43673.89351061 46203.20349244 48854.6074978  60173.91155038
+ 36867.17871553]
+type: <class 'numpy.ndarray'> , pred_test_2 : [ 9697.65503216  9949.59372157  9949.59372157 10528.12207674
+ 10774.9870553  12309.02747315 13742.63748045 14776.44417198
+  8599.17086329]
+type: <class 'numpy.ndarray'> , pred_test_3 : [37371.34354402 35667.77873089 37331.89316271 44086.75623239
+ 35723.60530782 36663.92865137 38106.72316233 46713.86070281
+ 35667.77873089]
+type: <class 'numpy.ndarray'> , pred_test_4 : [24973.90425689 25019.42490594 26551.23703394 70769.4762838
+ 36955.90175921 50944.82476991 59233.37246586 87658.82655334
+ 31940.52214405]
+type: <class 'numpy.ndarray'> , pred_test_5 : [ 3793.34687649  3114.89367339  3793.34687649 18535.56848792
+  4683.90698099  6189.5794104  11634.14210777 26705.69936755
+  4077.80551322]
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2011-11-04      False  31506.579474
+1      1     1 2011-11-11      False  17600.378471
+2      1     1 2011-11-18      False  18079.578296
+3      1     1 2011-11-25       True  17124.135192
+4      1     1 2011-12-02      False  21512.013330
+ training_csv_path: ../fold_6/train.csv 
+ test_csv_path: ../fold_6/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25408.392959
+1      1     1  2010     6       True  47722.024313
+2      1     1  2010     7      False  38607.544986
+3      1     1  2010     8      False  20144.409688
+4      1     1  2010     9      False  21789.980637
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [14714.56970586 16705.43920881 17025.99270574 17732.71226895
+ 21896.44864069 40761.98070655 41350.1871688  17583.60544903]
+type: <class 'numpy.ndarray'> , pred_test_1 : [42973.92573511 41642.7822311  43188.93869191 41938.46714486
+ 48594.26373652 46679.20903173 48248.37716341 47436.99279912]
+type: <class 'numpy.ndarray'> , pred_test_2 : [14899.50260429 12070.44818473 12394.99700054 11143.29023785
+ 11223.09822058 10977.7551342  10387.58830595 10444.38661386]
+type: <class 'numpy.ndarray'> , pred_test_3 : [37191.19148482 35522.55376241 35522.55376241 33377.80230143
+ 38145.86882658 35522.55376241 35522.55376241 34871.54365255]
+type: <class 'numpy.ndarray'> , pred_test_4 : [21980.58381859 19945.90777634 19195.73885714 23738.70100305
+ 31277.27313451 31686.44909746 30436.72821047 25952.72204587]
+type: <class 'numpy.ndarray'> , pred_test_5 : [1660.96583933 1967.19548123 1839.73253967 2499.17400753 3368.92739507
+ 4180.81470288 3943.1180516  3482.57048426]
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2012-01-06      False  14714.569706
+1      1     1 2012-01-13      False  16705.439209
+2      1     1 2012-01-20      False  17025.992706
+3      1     1 2012-01-27      False  17732.712269
+4      1     1 2012-02-03      False  21896.448641
+ training_csv_path: ../fold_7/train.csv 
+ test_csv_path: ../fold_7/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25385.787144
+1      1     1  2010     6       True  46887.331506
+2      1     1  2010     7      False  38562.334299
+3      1     1  2010     8      False  20160.117502
+4      1     1  2010     9      False  21865.189079
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [19573.64085655 19600.99288796 19876.08356515 20523.98321465
+ 37539.45728834 32650.40047159 21091.04960286 33490.64084476
+ 28460.19430561]
+type: <class 'numpy.ndarray'> , pred_test_1 : [51212.10501692 46679.07974211 46679.07974211 44938.89407896
+ 46922.69587575 46679.07974211 46679.07974211 46679.07974211
+ 45965.41833314]
+type: <class 'numpy.ndarray'> , pred_test_2 : [10603.01774966 10535.32293905  9697.80330303 10122.23995415
+ 10292.98556179 10419.30352837 10496.62722802 10535.32293905
+ 10031.19099509]
+type: <class 'numpy.ndarray'> , pred_test_3 : [37438.12795119 34416.21442289 34805.24148647 33125.37114939
+ 35881.93031912 35839.5544534  34107.87586568 35045.99098156
+ 34408.58195194]
+type: <class 'numpy.ndarray'> , pred_test_4 : [29565.60840464 26991.28649234 24868.35214983 30751.44881307
+ 28216.70622146 23564.95177462 20699.83296007 24861.70792268
+ 21287.44074998]
+type: <class 'numpy.ndarray'> , pred_test_5 : [3254.5288911  2967.60300029 2967.60300029 3310.00265804 2967.60300029
+ 2967.60300029 3058.84905806 3033.8076829  2967.60300029]
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2012-03-02      False  19573.640857
+1      1     1 2012-03-09      False  19600.992888
+2      1     1 2012-03-16      False  19876.083565
+3      1     1 2012-03-23      False  20523.983215
+4      1     1 2012-03-30      False  37539.457288
+ training_csv_path: ../fold_8/train.csv 
+ test_csv_path: ../fold_8/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25511.090483
+1      1     1  2010     6       True  46769.577709
+2      1     1  2010     7      False  39029.458594
+3      1     1  2010     8      False  20081.112790
+4      1     1  2010     9      False  21833.519663
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [18157.29863396 17609.63164422 15644.64804211 15619.95307654
+ 16649.85924909 16560.65676668 16211.08587467 16029.27853757
+ 16301.17741868]
+type: <class 'numpy.ndarray'> , pred_test_1 : [48303.98965556 45414.96456119 46746.03590988 46534.36140314
+ 47409.15318087 47618.88077202 47438.32315486 45882.38846581
+ 47204.84055924]
+type: <class 'numpy.ndarray'> , pred_test_2 : [10264.61579334  9474.51065306  9672.3375155   9421.66375639
+  9451.87806839  9256.61421986  9226.11880121  8789.09962734
+  8885.00637505]
+type: <class 'numpy.ndarray'> , pred_test_3 : [37817.86703249 34407.40422794 36221.22595142 36557.19604151
+ 39506.35517012 36557.19604151 36175.42650767 35087.08086731
+ 39049.08267232]
+type: <class 'numpy.ndarray'> , pred_test_4 : [19777.69116431 18679.14829367 17601.84654351 18073.89942586
+ 21833.95444147 20992.61993302 21845.47701237 20254.86364122
+ 20624.68423371]
+type: <class 'numpy.ndarray'> , pred_test_5 : [4733.40900384 4796.1715049  3919.48560057 4268.23521563 3295.7007101
+ 3295.7007101  3295.7007101  3198.44885386 3295.7007101 ]
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2012-05-04      False  18157.298634
+1      1     1 2012-05-11      False  17609.631644
+2      1     1 2012-05-18      False  15644.648042
+3      1     1 2012-05-25      False  15619.953077
+4      1     1 2012-06-01      False  16649.859249
+ training_csv_path: ../fold_9/train.csv 
+ test_csv_path: ../fold_9/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25507.274380
+1      1     1  2010     6       True  46721.548886
+2      1     1  2010     7      False  39016.136909
+3      1     1  2010     8      False  20108.632799
+4      1     1  2010     9      False  21849.586319
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [16689.48789025 16735.20733928 15724.14743669 16178.80785062
+ 16686.49608965 16027.65603863 15918.39375567 15445.43909314
+ 17757.92825757]
+type: <class 'numpy.ndarray'> , pred_test_1 : [46250.70846138 47187.96484889 46793.58825762 46762.29475221
+ 50260.6358336  48109.67424102 49101.03609372 48485.29348862
+ 50045.81176393]
+type: <class 'numpy.ndarray'> , pred_test_2 : [10103.33135732 14631.52952234 17622.90206416 20185.68416127
+ 26087.998972   30977.15483775 43876.48309228 48915.43886406
+ 21171.95273359]
+type: <class 'numpy.ndarray'> , pred_test_3 : [39461.99307828 36978.07613625 36867.83715115 36978.07613625
+ 40861.17283958 38440.90158516 40488.84813487 37133.98327514
+ 39273.75846073]
+type: <class 'numpy.ndarray'> , pred_test_4 : [19501.34543439 18726.74092601 18971.70014359 18441.5789895
+ 20197.10798208 19189.89365845 18360.89884249 16800.64330882
+ 17871.47779746]
+type: <class 'numpy.ndarray'> , pred_test_5 : [3587.61877236 3105.95905556 3430.55574751 3252.54327199 3443.19224078
+ 3257.52626755 2364.17530839 2762.62421347 3276.23977951]
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2012-07-06      False  16689.487890
+1      1     1 2012-07-13      False  16735.207339
+2      1     1 2012-07-20      False  15724.147437
+3      1     1 2012-07-27      False  16178.807851
+4      1     1 2012-08-03      False  16686.496090
+ training_csv_path: ../fold_10/train.csv 
+ test_csv_path: ../fold_10/test.csv
+STEP 1: CALLING PREPROCESSING LOGIC:
+=============================
+
+predict_sales(): Preprocessing the Training data.
+predict_sales(): df_train:
+    Store  Dept       Date  Weekly_Sales  IsHoliday
+0      1     1 2010-02-05      24924.50      False
+1      1     1 2010-02-12      46039.49       True
+2      1     1 2010-02-19      41595.55      False
+3      1     1 2010-02-26      19403.54      False
+4      1     1 2010-03-05      21827.90      False
+ preprocess_training_data(): Preprocessing Training Data
+preprocess_training_data(): df_train_transformed:
+    Store  Dept  Year_Week  Weekly_Sales
+0      1     1     201005      24924.50
+1      1     1     201006      46039.49
+2      1     1     201007      41595.55
+3      1     1     201008      19403.54
+4      1     1     201009      21827.90
+preprocess_training_data(): df_train_svd_smoothed:
+    Store  Dept  Year  Week  IsHoliday  Weekly_Sales
+0      1     1  2010     5      False  25505.951259
+1      1     1  2010     6       True  46651.611274
+2      1     1  2010     7      False  38982.634804
+3      1     1  2010     8      False  20155.385740
+4      1     1  2010     9      False  21856.901764
+predict_sales(): Preprocessing the Test data.
+predict_sales(): Generating encoded Training and  Test data.
+STEP 2: CALLING PREDICTION LOGIC:
+=============================
+
+predict_sales(): Generating Predicted Data.
+type: <class 'numpy.ndarray'> , pred_test_0 : [18930.18688875 18983.83094728 18983.83094728 19433.77953684
+ 22449.28500544 23897.52129693 25276.1626192  34249.24625081]
+type: <class 'numpy.ndarray'> , pred_test_1 : [45308.06299231 46181.94135663 45205.82834163 46588.30813151
+ 47574.7713094  44472.27300955 45109.5672902  44391.71176008]
+type: <class 'numpy.ndarray'> , pred_test_2 : [11429.46183166 10943.60680263 10000.69909601 10000.69909601
+ 10000.69909601 10000.69909601  9997.71564927  9654.6194877 ]
+type: <class 'numpy.ndarray'> , pred_test_3 : [37236.30257384 35897.50244233 34966.18716658 35805.67755409
+ 38102.84698579 36204.0412201  36006.18393568 36174.22798034]
+type: <class 'numpy.ndarray'> , pred_test_4 : [18420.06702752 20041.89473021 20371.72277957 21918.4734485
+ 25565.79042439 22974.88064591 25801.13107078 22615.16679003]
+type: <class 'numpy.ndarray'> , pred_test_5 : [3378.88503613 3188.54016861 3454.96824459 3103.41661018 3192.9921156
+ 3405.9254771  3454.96824459 3454.96824459]
+STEP 3: GENERATING PREDICTION FILE:
+=============================
+
+predict_sales(): Generating "mypred.csv" with the predicted data.
+predicted labels :    Store  Dept       Date  IsHoliday   Weekly_Pred
+0      1     1 2012-09-07       True  18930.186889
+1      1     1 2012-09-14      False  18983.830947
+2      1     1 2012-09-21      False  18983.830947
+3      1     1 2012-09-28      False  19433.779537
+4      1     1 2012-10-05      False  22449.285005
+
+
+
+============[ PROJECT 2 EVALUATION RESULTS]=================
+
+[1848.612034776927, 1338.3572757170123, 1373.0654860858128, 1480.5823280611087, 2274.3635933298606, 1621.9928323374654, 1671.7658402169088, 1381.533476550177, 1400.9252820453416, 1405.457492699939]
+1579.6655641820555
+
+
+
+============[ PROJECT 2 EVALUATION FINISHED !!]=================
+
+(CS598_Pratical_Statistical_Learning) amritpandey@Amrits-MacBook-Pro submission % 
