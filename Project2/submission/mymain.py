@@ -1,4 +1,6 @@
 # Step 0: Load necessary Python packages
+import os
+
 import numpy as np
 import pandas as pd
 
@@ -213,8 +215,7 @@ def predict_sales(train_csv, test_csv):
     df_test.to_csv('mypred.csv', index=False, sep=',',float_format='%.2f')
 
     print(f"predicted labels : {df_test.head()}")
-    pass
-
+    return df_test
 
 if __name__ == "__main__":
     print("\n\n\n============[ PROJECT 2 PROCESSING STARTS HERE !!]=================\n")
