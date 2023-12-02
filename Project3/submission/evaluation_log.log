@@ -1,0 +1,65 @@
+/Users/amritpandey/opt/anaconda3/envs/cs598_project3/bin/python /Users/amritpandey/Desktop/Study/workspace/MSDS/CS410_Text_Processing_System_Fall_2023/Project/CS410TeamProject/CS598_Pratical_Statistical_Learning/Project3/submission/evaluate_proj3.py
+
+
+
+============[ PROJECT 3  EVALUATION STARTS HERE !!]=================
+
+get_vectorizer(): Initializing and returns CountVectorizer based on input 'vocabulary'.
+-----------------------------------------
+fold_num:1 , data_path: ../proj3_data/split_1
+train_path:../proj3_data/split_1/train.tsv , test_path: ../proj3_data/split_1/test.tsv
+load_data(): Loading input files
+load_data(): Loading finished!!
+ train_data: (25000, 3) ,test_data: (25000, 2) , vocabulary: <class 'list'> -> 1000
+preprocess_and_transform_data(): Preprocesses and transforms input data.
+train_model(): Initializing and training model.
+fold 1 training_time: 0.3734438419342041 pred_time: 0.005864858627319336 auc_score: 0.9552497496132318
+-----------------------------------------
+fold_num:2 , data_path: ../proj3_data/split_2
+train_path:../proj3_data/split_2/train.tsv , test_path: ../proj3_data/split_2/test.tsv
+load_data(): Loading input files
+load_data(): Loading finished!!
+ train_data: (25000, 3) ,test_data: (25000, 2) , vocabulary: <class 'list'> -> 1000
+preprocess_and_transform_data(): Preprocesses and transforms input data.
+train_model(): Initializing and training model.
+fold 2 training_time: 0.302318811416626 pred_time: 0.0047149658203125 auc_score: 0.9567681211893848
+-----------------------------------------
+fold_num:3 , data_path: ../proj3_data/split_3
+train_path:../proj3_data/split_3/train.tsv , test_path: ../proj3_data/split_3/test.tsv
+load_data(): Loading input files
+load_data(): Loading finished!!
+ train_data: (25000, 3) ,test_data: (25000, 2) , vocabulary: <class 'list'> -> 1000
+preprocess_and_transform_data(): Preprocesses and transforms input data.
+train_model(): Initializing and training model.
+fold 3 training_time: 0.33472204208374023 pred_time: 0.0037899017333984375 auc_score: 0.9549026016382377
+-----------------------------------------
+fold_num:4 , data_path: ../proj3_data/split_4
+train_path:../proj3_data/split_4/train.tsv , test_path: ../proj3_data/split_4/test.tsv
+load_data(): Loading input files
+load_data(): Loading finished!!
+ train_data: (25000, 3) ,test_data: (25000, 2) , vocabulary: <class 'list'> -> 1000
+preprocess_and_transform_data(): Preprocesses and transforms input data.
+train_model(): Initializing and training model.
+fold 4 training_time: 0.318558931350708 pred_time: 0.0044400691986083984 auc_score: 0.9569912876744241
+-----------------------------------------
+fold_num:5 , data_path: ../proj3_data/split_5
+train_path:../proj3_data/split_5/train.tsv , test_path: ../proj3_data/split_5/test.tsv
+load_data(): Loading input files
+load_data(): Loading finished!!
+ train_data: (25000, 3) ,test_data: (25000, 2) , vocabulary: <class 'list'> -> 1000
+preprocess_and_transform_data(): Preprocesses and transforms input data.
+train_model(): Initializing and training model.
+fold 5 training_time: 0.311535120010376 pred_time: 0.0038700103759765625 auc_score: 0.9558559158821258
+
+
+
+============[ PROJECT 3 EVALUATION RESULTS]=================
+
+[0.9552497496132318, 0.9567681211893848, 0.9549026016382377, 0.9569912876744241, 0.9558559158821258]
+
+
+
+============[ PROJECT 3 EVALUATION FINISHED !!]=================
+
+
+Process finished with exit code 0
