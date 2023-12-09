@@ -1,9 +1,10 @@
 import streamlit as st
 import requests
 
-# Replace "127.0.0.1:8000" with your actual API server address and port
+# API URL
 api_url = "http://localhost/api"
 client = requests.Session()
+
 
 def get_recommendations_by_genre(genre):
     # Build the API request URL
@@ -21,10 +22,11 @@ def get_recommendations_by_genre(genre):
     if response.status_code == 200:
         # Parse the response JSON data
         data = response.json()
-        return  ["Movie 4", "Movie 5", "Movie 6"]#data["movies"]
+        return ["Movie 4", "Movie 5", "Movie 6"]  # data["movies"]
     else:
         print(f"Error fetching recommendations: {response.status_code}")
         return []
+
 
 def get_recommendations_by_rating(rating):
     # Build the API request URL
@@ -45,6 +47,8 @@ def get_recommendations_by_rating(rating):
         print(f"Error fetching recommendations: {response.status_code}")
         return []
 
+
+# Define function to handle recommendation type selection
 def handle_recommendation_type(selected_type):
     if selected_type == "Movie recommender by Genre":
         st.subheader("Movie Recommender by Genre")
@@ -68,46 +72,11 @@ def handle_recommendation_type(selected_type):
                 st.write(movie)
 
 
-#-----
-
-# Define function to handle recommendation type selection
-# def handle_recommendation_type(selected_type):
-#     if selected_type == "Movie recommender by Genre":
-#         st.subheader("Movie Recommender by Genre")
-#         genre_select = st.selectbox("Select Genre", genres)
-#         if st.button("Generate Recommendations"):
-#             # Call API with selected genre
-#             recommendations = get_recommendations_by_genre(genre_select)
-#             # Display recommendations
-#             st.write("Recommended Movies:")
-#             for movie in recommendations:
-#                 st.write(movie)
-#     elif selected_type == "Movie recommender by Rating":
-#         st.subheader("Movie Recommender by Rating")
-#         rating_slider = st.slider("Select Rating", 1, 5, 1)
-#         if st.button("Generate Recommendations"):
-#             # Call API with selected rating
-#             recommendations = get_recommendations_by_rating(rating_slider)
-#             # Display recommendations
-#             st.write("Recommended Movies:")
-#             for movie in recommendations:
-#                 st.write(movie)
-#
 # Define sample genres for the demo
 genres = ["Action", "Comedy", "Drama", "Thriller"]
-#
-# # Define placeholder functions for API calls
-# # You need to replace these with your actual API calls
-# def get_recommendations_by_genre(genre):
-#     # Replace this with your actual API call
-#     return ["Movie 1", "Movie 2", "Movie 3"]
-#
-# def get_recommendations_by_rating(rating):
-#     # Replace this with your actual API call
-#     return ["Movie 4", "Movie 5", "Movie 6"]
-#
-# # Create the main app layout
-# st.title("Movie Recommender App")
+
+# Create the main app layout
+st.title("Movie Recommender App")
 
 # Create the menu section
 st.sidebar.subheader("Choose Recommendation Type")
