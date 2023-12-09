@@ -3,7 +3,6 @@ from typing import List
 # Movie model
 class Movie(BaseModel):
     title: str =""
-    description: str = ""
 
 # Genre-based recommendation request
 class GenreRecommendationRequest(BaseModel):
@@ -15,4 +14,4 @@ class RatingRecommendationRequest(BaseModel):
 
 # Movie recommender response
 class MovieRecommendationResponse(BaseModel):
-    movies: List[Movie] = []
+    movies: List[str] = []

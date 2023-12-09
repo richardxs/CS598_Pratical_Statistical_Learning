@@ -22,7 +22,7 @@ def get_recommendations_by_genre(genre):
     if response.status_code == 200:
         # Parse the response JSON data
         data = response.json()
-        return ["Movie 4", "Movie 5", "Movie 6"]  # data["movies"]
+        return data["movies"]
     else:
         print(f"Error fetching recommendations: {response.status_code}")
         return []
@@ -41,8 +41,8 @@ def get_recommendations_by_rating(rating):
     # Check for successful response
     if response.status_code == 200:
         # Parse the response JSON data
-        data = response.json()
-        return data["movies"]
+        data = response
+        return data#["movies"]
     else:
         print(f"Error fetching recommendations: {response.status_code}")
         return []
@@ -57,7 +57,7 @@ def handle_recommendation_type(selected_type):
             # Call the genre-based recommendations function
             recommendations = get_recommendations_by_genre(genre_select)
             # Display recommendations
-            st.write("Recommended Movies:")
+            st.subheader("Recommended Movies:")
             for movie in recommendations:
                 st.write(movie)
     elif selected_type == "Movie recommender by Rating":
@@ -67,13 +67,33 @@ def handle_recommendation_type(selected_type):
             # Call the rating-based recommendations function
             recommendations = get_recommendations_by_rating(rating_slider)
             # Display recommendations
-            st.write("Recommended Movies:")
+            st.subheader("Recommended Movies:")
             for movie in recommendations:
                 st.write(movie)
 
 
 # Define sample genres for the demo
-genres = ["Action", "Comedy", "Drama", "Thriller"]
+def get_movie_genres():
+    print(f"get_movie_genres(): Fetching Movie Genres.")
+    # Build the API request URL
+    url = f"{api_url}/lookups/genre"
+    print(f"get_movie_genres(): Calling API  to fetch Genres: {url}")
+
+    # Send the POST request and get the response
+    response = client.get(url)
+
+    # Check for successful response
+    if response.status_code == 200:
+        # Parse the response JSON data
+        data = response.json()
+        print(f"get_movie_genres(): Movie Genres fetched from API : {data}")
+        return data
+    else:
+        print(f"Error fetching genres: {response.status_code}")
+        return []
+
+
+genres = get_movie_genres()
 
 # Create the main app layout
 st.title("Movie Recommender App")
