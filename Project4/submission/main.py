@@ -1,4 +1,4 @@
-from fastapi import FastAPI, Path, Query, Body
+from fastapi import FastAPI, Path, Query, Body, HTTPException
 import logging
 import pandas as pd
 from pydantic import BaseModel
@@ -124,41 +124,48 @@ class MovieLookupService():
 
     def lookup_unique_genres(self):
         logger.info(f"MovieLookupService::lookup_unique_genres() >> Creating Lookup for Movie Genres.")
-        """
-        Returns a list of unique genres from a pandas DataFrame.
+        try:
+            """
+            Returns a list of unique genres from a pandas DataFrame.
+    
+            Returns:
+              A list of unique genres.
+            """
+            df = self.movies_df
 
-        Returns:
-          A list of unique genres.
-        """
-        df = self.movies_df
+            # Check if "genre" column exists
+            if "Genres" not in df.columns:
+                raise ValueError("DataFrame does not have a column named 'genre'")
 
-        # Check if "genre" column exists
-        if "Genres" not in df.columns:
-            raise ValueError("DataFrame does not have a column named 'genre'")
+            # Split the genre column into a list of genres
+            df['Genres'] = df['Genres'].str.split(',')
 
-        # Split the genre column into a list of genres
-        df['Genres'] = df['Genres'].str.split(',')
+            # Flatten the list of lists into a single list
+            genres = df['Genres'].sum()
 
-        # Flatten the list of lists into a single list
-        genres = df['Genres'].sum()
+            # Remove duplicates and return the unique genres
+            unique_genres = list(set(genres))
+            logger.info(f"MovieLookupService::lookup_unique_genres() >> unique_genres: {unique_genres}.")
 
-        # Remove duplicates and return the unique genres
-        unique_genres = list(set(genres))
-        logger.info(f"MovieLookupService::lookup_unique_genres() >> unique_genres: {unique_genres}.")
-
-        return unique_genres
+            return unique_genres
+        except Exception as e:
+            logger.error(f"MovieLookupService::lookup_unique_genres() :{e}")
+            print(f"MovieLookupService::lookup_unique_genres() :{e}")
 
     def lookup_grouped_ratings(self):
         logger.info(f"MovieLookupService::lookup_grouped_ratings() >> Creating Lookup for Grouped Movie Ratings.")
+        try:
+            grouped_ratings = self.ratings_df.groupby('MovieID').agg({'Rating': ['count', 'mean']})
+            grouped_ratings.columns = grouped_ratings.columns.droplevel(0)
+            grouped_ratings.reset_index(inplace=True)
+            grouped_ratings.rename(columns={'count': 'RatingFreq', 'mean': 'RatingAvg'}, inplace=True)
+            logger.info(
+                f"MovieLookupService::lookup_grouped_ratings() >> Loaded Grouped Ratings :\n---------------\n{grouped_ratings.head()}")
 
-        grouped_ratings = self.ratings_df.groupby('MovieID').agg({'Rating': ['count', 'mean']})
-        grouped_ratings.columns = grouped_ratings.columns.droplevel(0)
-        grouped_ratings.reset_index(inplace=True)
-        grouped_ratings.rename(columns={'count': 'RatingFreq', 'mean': 'RatingAvg'}, inplace=True)
-        logger.info(
-            f"MovieLookupService::lookup_grouped_ratings() >> Loaded Grouped Ratings :\n---------------\n{grouped_ratings.head()}")
-
-        return grouped_ratings
+            return grouped_ratings
+        except Exception as e:
+            logger.error(f"MovieLookupService::lookup_grouped_ratings() :{e}")
+            print(f"MovieLookupService::lookup_grouped_ratings() :{e}")
 
     def load_movie_ratings(self):
         logger.info(f"MovieLookupService::load_movie_ratings() >> Creating Lookup for Movie Ratings.")
@@ -231,40 +238,44 @@ class MovieLookupService():
 
     def myIBCF(self, newuser, top_n=10):
         logger.info(f"myIBCF(): newuser:{newuser}")
-        popular_id_100 = list(self.popular_100.keys())
-        S = self.similarity_matrix
+        try:
+            popular_id_100 = list(self.popular_100.keys())
+            S = self.similarity_matrix
 
-        logger.info(f"popular_id_100: {len(popular_id_100)} total elements")
-        if isinstance(newuser, dict):
-            # create newuser from dict
-            rated_movies = set(newuser.keys())
-            newuser = pd.Series(newuser, index=self.all_movie_ids)
-        else:
-            rated_movies = set(newuser.loc[~pd.isna(newuser)].index.values)
+            logger.info(f"popular_id_100: {len(popular_id_100)} total elements")
+            if isinstance(newuser, dict):
+                # create newuser from dict
+                rated_movies = set(newuser.keys())
+                newuser = pd.Series(newuser, index=self.all_movie_ids)
+            else:
+                rated_movies = set(newuser.loc[~pd.isna(newuser)].index.values)
 
-        # generate rating predictions
-        prediction = S.multiply(newuser, axis=1).sum(axis=1) / S.loc[:, ~pd.isna(newuser)].sum(axis=1)
-        sorted_pred = prediction[prediction != float('inf')].sort_values(ascending=False)
+            # generate rating predictions
+            prediction = S.multiply(newuser, axis=1).sum(axis=1) / S.loc[:, ~pd.isna(newuser)].sum(axis=1)
+            sorted_pred = prediction[prediction != float('inf')].sort_values(ascending=False)
 
-        # uncomment the line to see predicted ratings
-        #     print(sorted_pred[~sorted_pred.isna()][:20])
+            # uncomment the line to see predicted ratings
+            #     print(sorted_pred[~sorted_pred.isna()][:20])
 
-        # remove invalid values and movies already rated by user
-        recommend_id = list(sorted_pred[~sorted_pred.isna()].index.values)
-        recommend_id = [item for item in recommend_id if item not in rated_movies]
+            # remove invalid values and movies already rated by user
+            recommend_id = list(sorted_pred[~sorted_pred.isna()].index.values)
+            recommend_id = [item for item in recommend_id if item not in rated_movies]
 
-        # if less than top_n recommendations, add most popular movies that are not rated by the user
-        # and not in the recommendation list
-        i = 0
-        while len(recommend_id) < top_n and i < 100:
-            if popular_id_100[i] not in rated_movies and popular_id_100[i] not in recommend_id:
-                recommend_id.append(popular_id_100[i])
-            i += 1
+            # if less than top_n recommendations, add most popular movies that are not rated by the user
+            # and not in the recommendation list
+            i = 0
+            while len(recommend_id) < top_n and i < 100:
+                if popular_id_100[i] not in rated_movies and popular_id_100[i] not in recommend_id:
+                    recommend_id.append(popular_id_100[i])
+                i += 1
 
-        recommended_movie_ids = recommend_id[:top_n]
-        recommended_movie_titles = [self.movies_lookup.get(key, 'Not Found') for key in recommended_movie_ids]
+            recommended_movie_ids = recommend_id[:top_n]
+            recommended_movie_titles = [self.movies_lookup.get(key, 'Not Found') for key in recommended_movie_ids]
 
-        return recommended_movie_titles
+            return recommended_movie_titles
+        except Exception as e:
+            logger.error(f"MovieLookupService::myIBCF() :{e}")
+            print(f"MovieLookupService::lookup_grouped_ratings() :{e}")
 
     @staticmethod
     def load_similarity_data():
@@ -281,7 +292,11 @@ class MovieLookupService():
 
         except FileNotFoundError:
             logger.error(f"Error: File {csv_path} not found.")
+            print(f"MovieLookupService::load_movie_rating_data() :{fnf}")
             # Handle the exception as needed, e.g., return a default DataFrame or raise an exception
+        except Exception as e:
+            logger.error(f"MovieLookupService::load_similarity_data() :{e}")
+            print(f"MovieLookupService::load_similarity_data() :{e}")
 
     # def load_similarity_matrix_data(self):
     #     logger.info(f"load_similarity_matrix_data(): Loading similarity matrix from the dataset")
@@ -297,9 +312,13 @@ class MovieLookupService():
             # Print or return the DataFrame, or perform further operations as needed
             return df_movie_rmat
 
-        except FileNotFoundError:
+        except FileNotFoundError as fnf:
             logger.error(f"Error: File {csv_path} not found.")
+            print(f"MovieLookupService::load_movie_rating_data() :{fnf}")
             # Handle the exception as needed, e.g., return a default DataFrame or raise an exception
+        except Exception as e:
+            logger.error(f"MovieLookupService::load_movie_rating_data() :{e}")
+            print(f"MovieLookupService::load_movie_rating_data() :{e}")
 
     def generate_movie_lookup(self):
         logger.info(f"generate_movie_lookup(): Generate lookup dictionary for movie id/ title.")
