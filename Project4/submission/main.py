@@ -270,7 +270,7 @@ class MovieLookupService():
     def load_similarity_data():
         logger.info(f"load_similarity_matrix_data(): Loading similarity matrix from the dataset")
         # Assuming the CSV file is in the 'resources' package
-        csv_path = "S.csv"
+        csv_path = "https://amritkumar.s3.us-east-2.amazonaws.com/CS598_Pratical_Statistical_Learning/S.csv" #"S.csv"
 
         try:
             # Load the CSV file into a Pandas DataFrame
@@ -288,7 +288,7 @@ class MovieLookupService():
     def load_movie_rating_data(self):
         logger.info(f"load_movie_rating_data(): Loading Movie rating data from the dataset")
         # Assuming the CSV file is in the 'resources' package
-        csv_path = "Movie_Rmat.csv"
+        csv_path = "https://amritkumar.s3.us-east-2.amazonaws.com/CS598_Pratical_Statistical_Learning/Movie_Rmat.csv"#"Movie_Rmat.csv"
 
         try:
             # Load the CSV file into a Pandas DataFrame
