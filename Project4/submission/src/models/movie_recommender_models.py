@@ -10,7 +10,7 @@ class GenreRecommendationRequest(BaseModel):
 
 # Rating-based recommendation request
 class RatingRecommendationRequest(BaseModel):
-    rating: float = 0.0
+    ratings: dict = dict()
 
 # Movie recommender response
 class MovieRecommendationResponse(BaseModel):

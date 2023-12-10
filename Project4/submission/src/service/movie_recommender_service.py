@@ -18,12 +18,15 @@ async def get_recommendations_by_genre(genre: str) -> MovieRecommendationRespons
     return MovieRecommendationResponse(movies=recommendations)
 
 # Placeholder function for rating-based recommendation
-async def get_recommendations_by_rating(rating: float) -> MovieRecommendationResponse:
+async def get_recommendations_by_rating(user_ratings: dict) -> MovieRecommendationResponse:
     # Replace this with your actual logic to fetch recommendations
-    recommendations = [
-        Movie(title="Movie 3"),
-        Movie(title="Movie 4"),
-    ]
+    print(f" get_recommendations_by_rating():user_ratings = {user_ratings}")
+
+    recommendations = movie_lookup_service.myIBCF(user_ratings, 10)
+    # [
+    #     Movie(title="Movie 3"),
+    #     Movie(title="Movie 4"),
+    # ]
     return MovieRecommendationResponse(movies=recommendations)
 
 

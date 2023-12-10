@@ -41,7 +41,8 @@ def get_recommendations_by_rating(rating):
     # Check for successful response
     if response.status_code == 200:
         # Parse the response JSON data
-        data = response
+        data = response.json()
+        print(f"type: {type(data)} , data: {data}")
         return data#["movies"]
     else:
         print(f"Error fetching recommendations: {response.status_code}")
@@ -49,6 +50,24 @@ def get_recommendations_by_rating(rating):
 
 
 # Define function to handle recommendation type selection
+def fetch_popular_movies(num_of_movies: int = 10):
+    url = f"{api_url}/lookups/popular_movies/?num_of_movies={num_of_movies}"
+
+    # Send the Get Request to fetch popular movies
+    response = client.get(url)
+
+    # Check for successful response
+    if response.status_code == 200:
+        # Parse the response JSON data
+        data = response.json()
+        print(f"popular movie types: {type(data)}")
+        print(f"get_movie_genres(): Popular movies fetched from the API {url} : {data}")
+        return data
+    else:
+        print(f"Error fetching popular movies: {response.status_code}")
+        return []
+
+
 def handle_recommendation_type(selected_type):
     if selected_type == "Movie recommender by Genre":
         st.subheader("Movie Recommender by Genre")
@@ -61,16 +80,43 @@ def handle_recommendation_type(selected_type):
             for movie in recommendations:
                 st.write(movie)
     elif selected_type == "Movie recommender by Rating":
-        st.subheader("Movie Recommender by Rating")
-        rating_slider = st.slider("Select Rating", 1, 5, 1)
+        st.subheader("Trending Movies")
+        movies = fetch_popular_movies()
+
+        # Display Popular Movies
+        ratings = {}
+        for movie_id, title in movies.items():
+            # Using st.slider for user ratings
+            rating = st.slider(f"{title} (MovieID: {movie_id})", 1, 5, key=str(movie_id))
+            st.write(f"You rated {title} as: {rating}")
+
+        # Collect user ratings
+        user_ratings = {str(movie_id): st.session_state[str(movie_id)] for movie_id, title in movies.items()}
+
+        print(f"user_ratings: {user_ratings}")
+
+
         if st.button("Generate Recommendations"):
             # Call the rating-based recommendations function
-            recommendations = get_recommendations_by_rating(rating_slider)
+            recommendations = get_recommendations_by_rating(user_ratings)
             # Display recommendations
+            print(f"recommendations by rating: {type(recommendations)}")
+            recommended_movies = recommendations["movies"]
             st.subheader("Recommended Movies:")
-            for movie in recommendations:
+            for movie in recommended_movies:
                 st.write(movie)
 
+
+# Define card layout for movie display
+# def movie_card(movie_id: str, movie_title: str):
+#     # Using st.slider for user ratings
+#     rating = st.slider(f"{row['Title']} (MovieID: {row['MovieID']})", 1, 5, key=str(row['MovieID']))
+#     st.write(f"You rated {row['Title']} as: {rating}")
+
+    # st.card(
+    #     title=movie_title,
+    #     content=f"Name: {movie_title}..."
+    # )
 
 # Define sample genres for the demo
 def get_movie_genres():

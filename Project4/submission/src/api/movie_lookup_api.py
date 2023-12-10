@@ -17,3 +17,12 @@ async def lookup_movie_genre():
     genres = movie_lookup_service.ui_genre_list #unique_movie_genres
     logger.info(f"movie_lookup_api::lookup_movie_genre()>> lookup_movie_genre:{lookup_movie_genre}")
     return genres
+
+
+@movie_lookup_router.get("/popular_movies/")
+async def lookup_popular_100_movies(num_of_movies: int = 10):
+    popular_100 = movie_lookup_service.popular_100 #unique_movie_genres
+    # Slice the dictionary to get the top N movies
+    top_n_movies = dict(list(popular_100.items())[:num_of_movies])
+    logger.info(f"movie_lookup_api::lookup_popular_100_movies()>> lookup_popular_100_movies:{popular_100}")
+    return top_n_movies
