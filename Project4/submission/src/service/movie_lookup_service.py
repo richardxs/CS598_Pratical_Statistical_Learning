@@ -36,6 +36,8 @@ class MovieLookupService():
         self.grouped_ratings = self.lookup_grouped_ratings()
 
         self.movies_ratings = self.load_movie_ratings()
+
+        self.movies_lookup = self.generate_movie_lookup()
         
         self.popular_100 = self.get_popular_100_movies()
 
@@ -212,7 +214,10 @@ class MovieLookupService():
                 recommend_id.append(popular_id_100[i])
             i += 1
 
-        return recommend_id[:top_n]
+        recommended_movie_ids = recommend_id[:top_n]
+        recommended_movie_titles = [self.movies_lookup.get(key, 'Not Found') for key in recommended_movie_ids]
+
+        return recommended_movie_titles
 
     @staticmethod
     def load_similarity_data():
@@ -248,6 +253,14 @@ class MovieLookupService():
         except FileNotFoundError:
             logger.error(f"Error: File {csv_path} not found.")
             # Handle the exception as needed, e.g., return a default DataFrame or raise an exception
+
+    def generate_movie_lookup(self):
+        logger.info(f"generate_movie_lookup(): Generate lookup dictionary for movie id/ title.")
+        # Generate a dictionary with 'MovieID' as key and 'Title' as value for the top 100 movies
+        movies_lookup = dict(zip(self.movies_ratings['MovieID'], self.movies_ratings['Title']))
+
+        return movies_lookup
+
 
 
 

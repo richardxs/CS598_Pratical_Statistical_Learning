@@ -1,5 +1,6 @@
 import streamlit as st
 import requests
+import pandas as pd
 
 # API URL
 api_url = "http://localhost/api"
@@ -77,14 +78,15 @@ def handle_recommendation_type(selected_type):
             recommendations = get_recommendations_by_genre(genre_select)
             # Display recommendations
             st.subheader("Recommended Movies:")
-            for movie in recommendations:
-                st.write(movie)
+            recommended_movies_df = pd.DataFrame(recommendations)
+            recommended_movies_df.columns = [":: Recommended Movies ::"]
+            st.dataframe(recommended_movies_df)
+
     elif selected_type == "Movie recommender by Rating":
         st.subheader("Trending Movies")
         movies = fetch_popular_movies()
 
         # Display Popular Movies
-        ratings = {}
         for movie_id, title in movies.items():
             # Using st.slider for user ratings
             rating = st.slider(f"{title} (MovieID: {movie_id})", 1, 5, key=str(movie_id))
@@ -103,20 +105,12 @@ def handle_recommendation_type(selected_type):
             print(f"recommendations by rating: {type(recommendations)}")
             recommended_movies = recommendations["movies"]
             st.subheader("Recommended Movies:")
-            for movie in recommended_movies:
-                st.write(movie)
+            recommended_movies_df = pd.DataFrame(recommended_movies)
+            recommended_movies_df.columns = [":: Recommended Movies ::"]
+            st.dataframe(recommended_movies_df)
+            # for movie in recommended_movies:
+            #     st.write(movie)
 
-
-# Define card layout for movie display
-# def movie_card(movie_id: str, movie_title: str):
-#     # Using st.slider for user ratings
-#     rating = st.slider(f"{row['Title']} (MovieID: {row['MovieID']})", 1, 5, key=str(row['MovieID']))
-#     st.write(f"You rated {row['Title']} as: {rating}")
-
-    # st.card(
-    #     title=movie_title,
-    #     content=f"Name: {movie_title}..."
-    # )
 
 # Define sample genres for the demo
 def get_movie_genres():
