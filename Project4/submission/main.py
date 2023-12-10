@@ -312,7 +312,7 @@ class MovieLookupService():
 movie_lookup_service = MovieLookupService()
 
 # Health Check API
-@app.get("/health")
+@app.get("/api/health")
 def check_application_health():
     response_dict = {"message": "Movie Recommender App is Up and Running!!"}
     return response_dict
@@ -337,12 +337,12 @@ async def lookup_popular_100_movies(num_of_movies: int = 10):
 # Recommendation Related API
 
 #API endpoint for genre-based recommendations
-@app.post("/genre")
+@app.post("/api/recommendations/genre")
 async def recommend_by_genre(request: GenreRecommendationRequest):
     return await get_recommendations_by_genre(genre=request.genre)
 
 # API endpoint for rating-based recommendations
-@app.post("/rating")
+@app.post("/api/recommendations/rating")
 async def recommend_by_rating(request: RatingRecommendationRequest):
     return await get_recommendations_by_rating(user_ratings=request.ratings)
 
