@@ -6,10 +6,10 @@
 2. API Component:
     <br> movie_recommender_app.py
 
-## Running UI Component
+## Running FrontEnd UI Component
 `Streamlit run movie_recommender_ui.py`
 
-## Running API
+## Running Backend API (Need to a cloud host)
 
 `uvicorn movie_recommender_app:app --host 0.0.0.0 --port 80 --reload`
 
