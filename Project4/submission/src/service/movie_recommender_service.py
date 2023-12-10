@@ -23,7 +23,7 @@ async def get_recommendations_by_rating(user_ratings: dict) -> MovieRecommendati
     print(f" get_recommendations_by_rating():user_ratings = {user_ratings}")
 
     recommendations = movie_lookup_service.myIBCF(user_ratings, 10)
-    # [
+    #recommendations = ["Movie 3" , "Movie 4"]
     #     Movie(title="Movie 3"),
     #     Movie(title="Movie 4"),
     # ]

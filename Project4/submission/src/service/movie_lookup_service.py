@@ -222,7 +222,7 @@ class MovieLookupService():
 
         try:
             # Load the CSV file into a Pandas DataFrame
-            df_similarity = pd.read_csv(csv_path)
+            df_similarity = pd.read_csv(csv_path, index_col=0)
 
             # Print or return the DataFrame, or perform further operations as needed
             return df_similarity
