@@ -2,12 +2,15 @@
 
 ## Components
 1. UI Component
-   <br/>movie_recommender_ui.py
+   `movie_recommender_ui.py`
 2. API Component:
-    <br> movie_recommender_app.py
+    `movie_recommender_app.py`
 
+# Project SetUp Steps
+## Install the dependencies
+`pip install -r requirements.txt`
 
-## Running Backend API (Need to a cloud host)
+## Running Backend API
 
 `uvicorn movie_recommender_app:app --host 0.0.0.0 --port 80 --reload`
 
