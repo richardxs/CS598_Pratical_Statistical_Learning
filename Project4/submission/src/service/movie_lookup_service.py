@@ -29,7 +29,7 @@ class MovieLookupService():
                               "Thriller", "War", "Western"]
 
         self.movies_df = self.load_movies_data()
-        self.unique_movie_genres = self.lookup_unique_genres()
+
 
         self.ratings_df = self.load_ratings_data()
 
@@ -74,32 +74,7 @@ class MovieLookupService():
         return movies
 
 
-    def lookup_unique_genres(self):
-        logger.info(f"MovieLookupService::lookup_unique_genres() >> Creating Lookup for Movie Genres.")
-        """
-        Returns a list of unique genres from a pandas DataFrame.
-  
-        Returns:
-          A list of unique genres.
-        """
-        df = self.movies_df
 
-        # Check if "genre" column exists
-        if "Genres" not in df.columns:
-            raise ValueError("DataFrame does not have a column named 'genre'")
-
-        # Split the genre column into a list of genres
-        df['Genres'] = df['Genres'].str.split(',')
-
-        # Flatten the list of lists into a single list
-        genres = df['Genres'].sum()
-
-        # Remove duplicates and return the unique genres
-        unique_genres = list(set(genres))
-        logger.info(f"MovieLookupService::lookup_unique_genres() >> unique_genres: {unique_genres}.")
-
-
-        return unique_genres
 
     def lookup_grouped_ratings(self):
         logger.info(f"MovieLookupService::lookup_grouped_ratings() >> Creating Lookup for Grouped Movie Ratings.")
@@ -118,6 +93,8 @@ class MovieLookupService():
         movies_ratings = self.movies_df.merge(self.grouped_ratings, left_on='MovieID', right_on='MovieID')
         logger.info(
             f"MovieLookupService::load_movie_ratings() >> Loaded Movie Ratings :\n---------------\n{movies_ratings.head()}")
+        # print(
+        #     f"MovieLookupService::load_movie_ratings() >> Loaded Movie Ratings :\n---------------\n{movies_ratings.head()}")
 
         return movies_ratings
 
@@ -175,7 +152,7 @@ class MovieLookupService():
 
         print(f"type_title: {type(self.top_rating_freq_with_movie_title)}, genre: {type(genre)}")
 
-        if self.top_k_rating_freq_with_movie_title and genre in self.top_rating_freq_with_movie_title:
+        if self.top_rating_freq_with_movie_title and genre in self.top_rating_freq_with_movie_title:
             top_movies = self.top_rating_freq_with_movie_title.get(genre)
 
         logger.info(
