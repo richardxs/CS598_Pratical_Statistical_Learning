@@ -3,7 +3,9 @@ import requests
 import pandas as pd
 
 # API URL
-api_url = "https://movie-recommender-app-gkmeeveifa-ul.a.run.app/api"
+#api_url = "https://movie-recommender-gkmeeveifa-ul.a.run.app/api"
+#api_url = "https://movie-recommender-app-gkmeeveifa-ul.a.run.app/api"
+api_url = "http://localhost/api"
 client = requests.Session()
 
 

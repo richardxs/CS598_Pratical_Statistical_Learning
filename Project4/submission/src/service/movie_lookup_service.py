@@ -42,6 +42,7 @@ class MovieLookupService():
         self.popular_100 = self.get_popular_100_movies()
 
         self.top_k_rating_freq_with_movie_id, self.top_k_rating_freq_with_movie_title = self.fetch_top_k_movies_grouped_by_genres(k)
+        self.top_rating_freq_with_movie_id, self.top_rating_freq_with_movie_title = self.fetch_top_movies_grouped_by_genres()
 
         self.similarity_matrix = self.load_similarity_data()
         self.movie_rating_2d_df = self.load_movie_rating_data()
@@ -133,6 +134,20 @@ class MovieLookupService():
 
         return genre_movie_id_rating_freq, genre_movie_title_rating_freq
 
+    def fetch_top_movies_grouped_by_genres(self):
+        logger.info(f"MovieLookupService::fetch_top_k_movies_grouped_by_genres() >> Creating Lookup for Top  movies grouped by genres.")
+        genre_movie_id_rating_freq = {}
+        genre_movie_title_rating_freq = {}
+        #K = 5  # top 5
+        for genre in self.ui_genre_list:
+            true_table = self.movies_ratings['Genres'].apply(lambda x: True if genre in x else False)
+            rating_freq_df = self.movies_ratings[true_table].sort_values('RatingFreq', ascending=False)
+            genre_movie_id_rating_freq[genre] = rating_freq_df['MovieID']
+            genre_movie_title_rating_freq[genre] = rating_freq_df['Title']
+
+        return genre_movie_id_rating_freq, genre_movie_title_rating_freq
+
+
 
     # def pad_dictionary(self, dictionary, K):
     #     for key, val in dictionary.items():
@@ -158,16 +173,16 @@ class MovieLookupService():
             f"MovieLookupService::fetch_top_movie_recommendations_by_genre() >> Fetching top recommendations for movie genre -> {genre}.")
         top_movies = []
 
-        print(f"type_title: {type(self.top_k_rating_freq_with_movie_title)}, genre: {type(genre)}")
+        print(f"type_title: {type(self.top_rating_freq_with_movie_title)}, genre: {type(genre)}")
 
-        if self.top_k_rating_freq_with_movie_title and genre in self.top_k_rating_freq_with_movie_title:
-            top_movies = self.top_k_rating_freq_with_movie_title.get(genre)
+        if self.top_k_rating_freq_with_movie_title and genre in self.top_rating_freq_with_movie_title:
+            top_movies = self.top_rating_freq_with_movie_title.get(genre)
 
         logger.info(
             f"MovieLookupService::fetch_top_movie_recommendations_by_genre() >> Most popular movies for Genre '{genre}' are => {top_movies}.")
         # create_movies_object = lambda movie: Movie(title=movie)
         # top_movies_object_list = list(map(create_movies_object, top_movies))
-        return top_movies
+        return top_movies[:10]
 
     def get_popular_100_movies(self):
 
