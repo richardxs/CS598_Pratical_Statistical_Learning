@@ -1,0 +1,5 @@
+numpy
+pandas
+FastAPI
+Streamlit
+uvicorn
