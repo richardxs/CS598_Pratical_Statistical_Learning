@@ -3,12 +3,18 @@
 # Placeholder function for genre-based recommendation
 from src.models.movie_recommender_models import Movie, MovieRecommendationResponse
 from src.service.movie_lookup_service import MovieLookupService
+import logging
+logger = logging.getLogger(__name__)
+# Set the logging level to DEBUG
+logger.setLevel(logging.INFO)
 
 movie_lookup_service = MovieLookupService()
 
 async def get_recommendations_by_genre(genre: str) -> MovieRecommendationResponse:
     # Replace this with your actual logic to fetch recommendations
     recommendations = movie_lookup_service.fetch_top_movie_recommendations_by_genre(genre)
+    print(f"get_recommendations_by_genre(): recommendations: {type(recommendations)} \n {recommendations}")
+    logger.info(f"get_recommendations_by_genre(): recommendations: {type(recommendations)} \n {recommendations}")
 
     # recommendations = [
     #     Movie(title="Movie 1", description="Action movie"),

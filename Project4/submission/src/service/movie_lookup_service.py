@@ -159,7 +159,12 @@ class MovieLookupService():
             f"MovieLookupService::fetch_top_movie_recommendations_by_genre() >> Most popular movies for Genre '{genre}' are => {top_movies}.")
         # create_movies_object = lambda movie: Movie(title=movie)
         # top_movies_object_list = list(map(create_movies_object, top_movies))
-        return top_movies[:10]
+        top_10_movies_by_genre = top_movies[:10]
+        if isinstance(top_10_movies_by_genre, pd.Series):
+            top_10_movies_by_genre = top_10_movies_by_genre.tolist()
+        logger.info(f"fetch_top_movie_recommendations_by_genre(): recommendations: {type(top_10_movies_by_genre)} \n {top_10_movies_by_genre}")
+        #print(f"fetch_top_movie_recommendations_by_genre(): recommendations: {type(top_10_movies_by_genre)} \n {top_10_movies_by_genre}")
+        return top_10_movies_by_genre
 
     def get_popular_100_movies(self):
 
